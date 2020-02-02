@@ -29,8 +29,8 @@
 # - CFLAGS: Any extra user-specified compiler flags (can be blank).
 
 # Recommended compiler flags:
-CFLAGS += -std=c99 -O
-
+CFLAGS += -std=c99 -O 
+CFLAGS += `sdl-config --cflags --libs`
 # Extra flags for diagnostics:
 # CFLAGS += -g -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -fsanitize=undefined,address
 
@@ -50,8 +50,8 @@ CFLAGS += -std=c99 -O
 
 # ---- Targets to build ----
 
-LIB = qrcodegen
-LIBFILE = lib$(LIB).a
+LIB = qrcodegen 
+LIBFILE = lib$(LIB).a 
 LIBOBJ = qrcodegen.o
 MAINS = qrcodegen-demo qrcodegen-test qrcodegen-worker
 
@@ -68,7 +68,7 @@ clean:
 	$(CC) $(CFLAGS) -o $@ $< -L . -l $(LIB)
 
 # Special executable
-qrcodegen-test: qrcodegen-test.c $(LIBOBJ:%.o=%.c)
+qrcodegen-test: qrcodegen-test.c $(LIBOBJ:%.o=%.c) `sdl-config --cflags --libs` 
 	$(CC) $(CFLAGS) -DQRCODEGEN_TEST -o $@ $^
 
 # The library
