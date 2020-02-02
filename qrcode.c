@@ -1,4 +1,4 @@
-/* gcc qrcodegen-demo.c qrcodegen.c `sdl-config --cflags --libs` -o sdl
+/* gcc qrcode.c qrcodegen.c `sdl-config --cflags --libs` -o sdl
  *
  * QR Code generator demo (C)
  * 
@@ -33,7 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <SDL/SDL.h>
-#include "qrcodegen.h"
+#include "qrcode.h"
 
 
 // Function prototypes
