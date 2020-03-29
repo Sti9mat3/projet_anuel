@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 	const char* query;
 	unsigned int num_fields;
 	unsigned int i;
+	char** table;
 
 	if (mysql_library_init(0, NULL, NULL)) {
     		fprintf(stderr, "could not initialize MySQL client library\n");
@@ -46,7 +47,7 @@ int main(int argc, char **argv)
 	}  
 
 
-	query = "SELECT * FROM testdb";   
+	query = "SELECT * FROM testtable";   
 	stmt = mysql_stmt_init(con);
 	
 	if(!stmt)
@@ -69,13 +70,13 @@ int main(int argc, char **argv)
 
 	param_count = mysql_stmt_param_count(stmt);
 	fprintf(stdout, " total parameters in SELECT: %d\n", param_count);
-
+/*
 	if (param_count != 1) 
 	{
 		fprintf(stderr, " invalid parameter count returned by MySQL\n");
 		exit(0);
 	}
-/*
+
 	memset(bind, 0, sizeof(bind));
 
 	bind[0].buffer_type = MYSQL_TYPE_STRING;
@@ -84,7 +85,7 @@ int main(int argc, char **argv)
 	bind[0].is_null = 0;
 	bind[0].length = &str_length; 
 
-	if(mysql_stmt_bind_param(stmt, bind))
+ur quel sujetif(mysql_stmt_bind_param(stmt, bind))
 	{
 		fprintf(stderr, " mysql_stmt_bind_param() failed\n");
 		fprintf(stderr, " %s\n", mysql_stmt_error(stmt));
@@ -106,19 +107,28 @@ int main(int argc, char **argv)
 	if(result)
 	{
 		num_fields = mysql_num_fields(result);
-		printf("result is empty\n");
+		printf("result is empty %d\n", num_fields);
 	}else{
 		fprintf(stderr,"Error: %s\n", mysql_error(&stmt));
 	}
-
-	while ((row = mysql_fetch_row(result)))
+/*	
+	*table = malloc(sizeof(MYSQL_RES)*num_fields);
+	if(*table == NULL)
+	{
+		fprintf(stderr, "Error: malloc doesn't work");
+		return EXIT_FAILURE;
+	}
+*/	
+	while((row = mysql_fetch_row(result)))
 	{
    		unsigned long *lengths;
    		lengths = mysql_fetch_lengths(result);
-   		for(i = 0; i < num_fields; i++)
+   		printf("result is empty %d\n", num_fields);
+		for(i = 0; i < num_fields; i++)
    		{
        			printf("%.*s ", (int) lengths[i],
               		row[i] ? row[i] : "NULL");
+			
    		}
    		printf("\n");
 	}
